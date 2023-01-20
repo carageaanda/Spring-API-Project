@@ -1,6 +1,6 @@
 # Spring-Project
 
-A system that keeps track of both the musicians and the music they produce. The system implements CRUD operation on entities, the ability to handle individual errors. Rest endpoint for all the main features are defined. Unit tests with 85% coverage and the POJO classes are validated. To create this project I used Spring Web, Mockito, MySQLWorkbench, JPA. 
+A system that keeps track of both the musicians and the music they produce. The system implements CRUD operation on entities, the ability to handle individual errors. Rest endpoint for all the main features are defined. Unit tests done and the POJO classes are validated. To create this project I used Spring Web, Mockito, MySQLWorkbench, JPA. 
 
 The Structure of the Database 
 
