@@ -1,0 +1,834 @@
+{
+	"info": {
+		"_postman_id": "f6981dea-51e7-4f28-8097-4696d41fbb2e",
+		"name": "Proiect Spring",
+		"description": "A company that keeps track of both the musicians and the music they produce.\n\nDatabase:\n\n1. A Band has multiple Albums. (OneToMany)\n2. An Album has a price and a quantity - AlbumDetails (OneToOne)\n3. An Album has multiple Songs. (OneToMany)\n4. A Song has multiple Genres and a Genre can belong to multiple Songs. (ManyToMany)\n5. A Shop has multiple Albums and an Album can belong to multiple Shops.\n    \n\nRules:\n\n- Group Name is unique in the firm;\n- Stage Name of an Artist is unique in the firm;\n- Title of Album is unique per Group.\n    \n\nParticular Pattern ----- YEAR, DATE_OF_BIRTH_ LENGTH",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "24252185"
+	},
+	"item": [
+		{
+			"name": "Band Requests",
+			"item": [
+				{
+					"name": "Add Band Without Artists",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"bandName\": \"NewBand\",\r\n    \"noMembers\": \"1\",\r\n    \"yearDebut\": \"2018\",\r\n    \"yearDisbandment\": null\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8081/band",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"band"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Band With Artists",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"bandName\": \"Option X\",\r\n    \"noMembers\": 3,\r\n    \"yearDebut\": \"2014\",\r\n    \"yearDisbandment\": null,\r\n    \"artists\": [\r\n        {\r\n            \"firstName\": \"Kim\",\r\n            \"lastName\": \"Bremen\",\r\n            \"stageName\": \"Kim\",\r\n            \"birthDate\": \"20-Feb-1999\"\r\n        },\r\n        {\r\n            \"firstName\": \"Maya\",\r\n            \"lastName\": \"Bremen\",\r\n            \"stageName\": \"Maya\",\r\n            \"birthDate\": \"02-Aug-1998\"\r\n        },\r\n\t\t{\r\n            \"firstName\": \"Dorothy\",\r\n            \"lastName\": \"Mason\",\r\n            \"stageName\": \"Dory\",\r\n            \"birthDate\": \"03-Dec-1994\"\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8081/band",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"band"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Group Without Artists",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 1,\r\n    \"bandName\": \"The Four\",\r\n    \"yearDebut\": \"2014\",\r\n    \"yearDisbandment\": \"2023\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8081/band/1/updateBandDetails",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"band",
+								"1",
+								"updateBandDetails"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Group With Artists",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 1,\r\n    \"noMembers\": 3,\r\n    \"artists\": [\r\n        {\r\n            \"firstName\": \"Julia\",\r\n            \"lastName\": \"Richard\",\r\n            \"stageName\": \"July\",\r\n            \"birthDate\": \"23-Sep-2000\"\r\n        },\r\n        {\r\n            \"firstName\": \"Mark\",\r\n            \"lastName\": \"Snow\",\r\n            \"stageName\": \"Mark\",\r\n            \"birthDate\": \"01-Dec-1999\"\r\n        },\r\n\t\t{\r\n            \"firstName\": \"Karla\",\r\n            \"lastName\": \"Dion\",\r\n            \"stageName\": \"Karla\",\r\n            \"birthDate\": \"25-Feb-1997\"\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8081/band/1/update/artistsFromBand",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"band",
+								"1",
+								"update",
+								"artistsFromBand"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add a New Artist to a Band",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstName\": \"Aria\",\r\n    \"lastName\": \"Pop\",\r\n    \"stageName\": \"Aria\",\r\n    \"birthDate\": \"14-Aug-1999\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8081/band/1/saveNewArtistBand",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"band",
+								"1",
+								"saveNewArtistBand"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add an Existing Artist to a Band",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8081/band/1/saveExistingArtistToBand/4",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"band",
+								"1",
+								"saveExistingArtistToBand",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete an Artist From a Band",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8081/band/1/deleteArtistFromBand/4",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"band",
+								"1",
+								"deleteArtistFromBand",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Bands By the number of Members and/or year / or all Bands",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8081/band?noMembers=4&year=2014",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"band"
+							],
+							"query": [
+								{
+									"key": "noMembers",
+									"value": "4"
+								},
+								{
+									"key": "year",
+									"value": "2014"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "Requests for bands of artists. Save a new band, update it or list them. You can also use artists in requests."
+		},
+		{
+			"name": "Artist Requests",
+			"item": [
+				{
+					"name": "Save a New Artist",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstName\": \"Merry\",\r\n    \"lastName\": \"Monroe\",\r\n    \"stageName\": \"Ina\",\r\n    \"birthDate\": \"18-Jul-1993\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8081/artist",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"artist"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Artist",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 1,\r\n    \"firstName\": \"Sonny\",\r\n    \"lastName\": \"Mate\",\r\n    \"stageName\": \"K8\",\r\n    \"birthDate\": \"20-Oct-1997\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8081/artist/1/update",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"artist",
+								"1",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Put Artist in Band",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8081/artist/1/putBand/2",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"artist",
+								"1",
+								"putBand",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Artist",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8081/artist/1/delete",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"artist",
+								"1",
+								"delete"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Artists",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8081/artist",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"artist"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "Requests for artists. Add a new artist, update it or list them. Can not work with bands in body requests."
+		},
+		{
+			"name": "Album Requests",
+			"item": [
+				{
+					"name": "Update Album Details",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"idAlbumDetails\": 1,\r\n    \"price\": 0,\r\n    \"quantity\": 10\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8081/albumDetails/1/update",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"albumDetails",
+								"1",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Album",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\":1,\r\n    \"albumTitle\": \"Forever Young\",\r\n    \"albumYear\": \"2022\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8081/album/1/update",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"album",
+								"1",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Save Album Without Songs",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"albumName\": \"Black Mamba\",\r\n    \"albumYear\": \"2020\",\r\n    \"noTracks\": 3,\r\n    \"bandName\": \"AOE\",\r\n    \"albumDetails\": {\r\n        \"price\": 7,\r\n        \"quantity\": 5\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8081/album",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"album"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Save Album With Songs",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"albumName\": \"Alin baiat fin\",\r\n    \"albumYear\": \"2020\",\r\n    \"noTracks\": 3,\r\n    \"bandName\": \"AOE\",\r\n    \"albumDetails\": {\r\n        \"price\": 7.15,\r\n        \"quantity\": 17\r\n    },\r\n    \"songs\": [\r\n        {\r\n\t\t\t\"songTitle\": \"Black Mamba\",\r\n\t\t\t\"songLength\": \"2m 54s\",\r\n\t\t\t\"language\": \"ENGLISH\"\r\n        },\r\n\t\t{\r\n\t\t\t\"songTitle\": \"Forever\",\r\n\t\t\t\"songLength\": \"4m 58s\",\r\n\t\t\t\"language\": \"ENGLISH\"\r\n        },\r\n\t\t{\r\n\t\t\t\"songTitle\": \"Next Level\",\r\n\t\t\t\"songLength\": \"3m 41s\",\r\n\t\t\t\"language\": \"ENGLISH\"\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8081/album",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"album"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Existing Song to an Album",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "localhost:8081/album/1/putSong/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"album",
+								"1",
+								"putSong",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Remove Song from Album",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "localhost:8081/album/1/deleteSong/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"album",
+								"1",
+								"deleteSong",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List of All Albums",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8081/album?year=2017&price=23",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"album"
+							],
+							"query": [
+								{
+									"key": "year",
+									"value": "2017"
+								},
+								{
+									"key": "price",
+									"value": "23"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add New Song to an Album",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"songTitle\": \"Living Free\",\r\n\t\"songLength\": \"4m 58s\",\r\n\t\"language\": \"ROMANIAN\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8081/album/1/addSong",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"album",
+								"1",
+								"addSong"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "Requests for albums. Add a new album, update it or list them. You can also use songs in requests. And update the details (price and/or quantity) for a certain album"
+		},
+		{
+			"name": "Song Requests",
+			"item": [
+				{
+					"name": "Save a New Song",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"songTitle\": \"Are u Mine?\",\r\n\t\"songLength\": \"4m 58s\",\r\n\t\"language\": \"ROMANIAN\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8081/song",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"song"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Set an Album for a Song",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "localhost:8081/song/9/setSongInAlbum/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"song",
+								"9",
+								"setSongInAlbum",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Set New Genres for a Song",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\r\n    {\r\n        \"type\": \"Rock\"\r\n    },\r\n    {\r\n        \"type\": \"Jazz\"\r\n    },\r\n    {\r\n        \"type\": \"Latino\"\r\n    }\r\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8081/song/1/setNewGenre",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"song",
+								"1",
+								"setNewGenre"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Set Existing Genre to a Song",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "localhost:8081/song/1/setExistingGenre/3",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"song",
+								"1",
+								"setExistingGenre",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Specific Genre from All Songs that have it",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8081/song/delete/genre?type=Rock",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"song",
+								"delete",
+								"genre"
+							],
+							"query": [
+								{
+									"key": "type",
+									"value": "Rock"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List of All Songs in a Certain Language",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8081/song?language=ENGLISH",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"song"
+							],
+							"query": [
+								{
+									"key": "language",
+									"value": "ENGLISH"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "Requests for songs. Add a new song, update it or list them of a certain language. Delete a specific genre from all songs that are of that type."
+		},
+		{
+			"name": "Shop Requests",
+			"item": [
+				{
+					"name": "Buy an Album",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "localhost:8081/shop/1?nr=1",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"shop",
+								"1"
+							],
+							"query": [
+								{
+									"key": "nr",
+									"value": "1"
+								},
+								{
+									"key": "country",
+									"value": "FR",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List of All Shops",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8081/shop",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"shop"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Save a New Shop",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"location\": \"Miami\"\r\n    \r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8081/shop?albumIds=1",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"shop"
+							],
+							"query": [
+								{
+									"key": "albumIds",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
